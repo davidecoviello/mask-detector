@@ -31,10 +31,7 @@ import matplotlib.pyplot as plt
 
 DRIVE_BASE_DIR = '/content/drive/MyDrive/visione-percezione/progetto/'
 #BASE_DIR = '/content/dataset/'
-BASE_DIR = 'dataset/'
-NO_MASK_DIR = BASE_DIR + 'Dataset/without_mask/'
-CORRECT_MASK_DIR = BASE_DIR + 'Dataset/with_mask/'
-UNCORRECT_MASK_DIR = BASE_DIR + 'incorrectly_masked/'
+BASE_DIR = '../../dataset/'
 DATASET_DIR = BASE_DIR + 'final_dataset/'
 DATA_DIR = Path(DATASET_DIR)
 SAVED_MODEL_DIR = DRIVE_BASE_DIR + 'model'
@@ -50,7 +47,7 @@ IMG_WIDTH = 256
 # shutil.rmtree(BASE_DIR+'__MACOSX')
 # -
 
-EPOCHS = 7
+EPOCHS = 10
 BATCH_SIZE = 32
 
 # +
@@ -93,13 +90,15 @@ data_augmentation = keras.Sequential(
   ]
 )
 
-plt.figure(figsize=(10, 10))
-for images, _ in train_ds.take(random.randint(1, 100)):
-    for i in range(9):
-        augmented_images = data_augmentation(images)
-        ax = plt.subplot(3, 3, i + 1)
-        plt.imshow(augmented_images[0].numpy().astype("uint8"))
-        plt.axis("off")
+# + active=""
+# plt.figure(figsize=(10, 10))
+# for images, _ in train_ds.take(random.randint(1, 100)):
+#     for i in range(9):
+#         augmented_images = data_augmentation(images)
+#         ax = plt.subplot(3, 3, i + 1)
+#         plt.imshow(augmented_images[0].numpy().astype("uint8"))
+#         plt.axis("off")
+# -
 
 AUTOTUNE = tf.data.AUTOTUNE
 train_ds = train_ds.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
@@ -122,6 +121,7 @@ model = Sequential([
   layers.Dropout(0.2),
   layers.Flatten(),
   layers.Dense(128, activation='relu'),
+  layers.Dense(64, activation='relu'),
   layers.Dense(num_classes)
 ])
 
@@ -138,17 +138,18 @@ model.summary()
 # -
 
 start_time = time.time()
-epochs=EPOCHS
+epochs = EPOCHS
 history = model.fit(
   train_ds,
   validation_data=val_ds,
   epochs=epochs
 )
 model.save(BASE_DIR+'../model')
-print("--- %s minutes ---" % (time.time() - start_time))
+print("--- %s seconds ---" % (time.time() - start_time))
 
-model = keras.models.load_model(BASE_DIR+'../model')
-model.summary()
+# + active=""
+# model = keras.models.load_model(BASE_DIR+'../model')
+# model.summary()
 
 # +
 acc = history.history['accuracy']
@@ -177,8 +178,8 @@ plt.show()
 #newsize = (IMG_WIDTH, IMG_HEIGHT)
 #img = img.resize(newsize)
 
-#img_url = "https://i.pinimg.com/originals/91/ec/8e/91ec8e4f812f41c24d5e23d4a9b27f8f.jpg"
-img_url = "https://img2.thelist.com/img/gallery/dan-rathers-tweet-about-face-masks-is-causing-a-stir/dan-rather-has-strong-words-for-people-who-wear-masks-incorrectly-1611465085.jpg"
+#img_url = "https://cdn.cliqueinc.com/posts/278702/best-face-moisturizers-278702-1553206513142-square.700x0c.jpg"
+img_url = "https://media.dare2b.com/catalog/product/cache/c687aa7517cf01e65c009f6943c2b1e9/T/R/TRP118_500_01_bynder_defined_type_model_01_1622610086.jpg"
 img_path = tf.keras.utils.get_file(f'{random.randint(0, 100000)}', origin=img_url)
 
 img = keras.preprocessing.image.load_img(

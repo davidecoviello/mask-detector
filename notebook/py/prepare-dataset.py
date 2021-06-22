@@ -54,7 +54,7 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 
-BASE_DIR = 'dataset/'
+BASE_DIR = '../../dataset/'
 NO_MASK_DIR = BASE_DIR + 'Dataset/without_mask/'
 CORRECT_MASK_DIR = BASE_DIR + 'Dataset/with_mask/'
 UNCORRECT_MASK_DIR = BASE_DIR + 'incorrectly_masked/'
@@ -64,6 +64,21 @@ DATA_DIR = Path(DATASET_DIR)
 IMG_HEIGHT = 256
 IMG_WIDTH = 256
 
+# + active=""
+# # make destination directory and subdirectories if not already exist
+# Path(DATASET_DIR).mkdir(parents=True, exist_ok=True)
+# Path(DATASET_DIR+'not-masked').mkdir(parents=True, exist_ok=True)
+# Path(DATASET_DIR+'correctly-masked').mkdir(parents=True, exist_ok=True)
+# Path(DATASET_DIR+'uncorrectly-masked').mkdir(parents=True, exist_ok=True)
+# # copy images from source directories to final directory
+# [shutil.copy(NO_MASK_DIR+image, DATASET_DIR+'not-masked/') for image in os.listdir(NO_MASK_DIR)]
+# [shutil.copy(CORRECT_MASK_DIR+image, DATASET_DIR+'correctly-masked/') for image in os.listdir(CORRECT_MASK_DIR)]
+# # in order to have the same number of images, only 7 subdirectories will go
+# for subdir in os.listdir(UNCORRECT_MASK_DIR)[1:7]:
+#     full_subdir = UNCORRECT_MASK_DIR + subdir + '/'
+#     [shutil.copy(full_subdir+image, DATASET_DIR+'uncorrectly-masked/') for image in os.listdir(full_subdir)]
+# -
+
 # make destination directory and subdirectories if not already exist
 Path(DATASET_DIR).mkdir(parents=True, exist_ok=True)
 Path(DATASET_DIR+'not-masked').mkdir(parents=True, exist_ok=True)
@@ -71,11 +86,13 @@ Path(DATASET_DIR+'correctly-masked').mkdir(parents=True, exist_ok=True)
 Path(DATASET_DIR+'uncorrectly-masked').mkdir(parents=True, exist_ok=True)
 # # copy images from source directories to final directory
 [shutil.copy(NO_MASK_DIR+image, DATASET_DIR+'not-masked/') for image in os.listdir(NO_MASK_DIR)]
-[shutil.copy(CORRECT_MASK_DIR+image, DATASET_DIR+'correctly-masked/') for image in os.listdir(CORRECT_MASK_DIR)]
 # in order to have the same number of images, only 7 subdirectories will go
 for subdir in os.listdir(UNCORRECT_MASK_DIR)[1:7]:
     full_subdir = UNCORRECT_MASK_DIR + subdir + '/'
     [shutil.copy(full_subdir+image, DATASET_DIR+'uncorrectly-masked/') for image in os.listdir(full_subdir)]
+for subdir in os.listdir(ALT_CORRECT_MASK_DIR)[1:7]:
+    full_subdir = ALT_CORRECT_MASK_DIR + subdir + '/'
+    [shutil.copy(full_subdir+image, DATASET_DIR+'correctly-masked/') for image in os.listdir(full_subdir)]
 
 
 # +
@@ -117,7 +134,8 @@ PIL.Image.open(str(uncorr_mask_images[random.randint(0, len(uncorr_mask_images))
 no_mask_images = list(DATA_DIR.glob("not-masked/*"))
 PIL.Image.open(str(no_mask_images[random.randint(0, len(no_mask_images))]))
 
-# Using an alternative dataset in order to get images of people waring mask only in the correct way
-for subdir in os.listdir(ALT_CORRECT_MASK_DIR)[1:7]:
-    full_subdir = ALT_CORRECT_MASK_DIR + subdir + '/'
-    [shutil.copy(full_subdir+image, BASE_DIR+'alt_correctly-masked/') for image in os.listdir(full_subdir)]
+# + active=""
+# # Using an alternative dataset in order to get images of people waring mask only in the correct way
+# for subdir in os.listdir(ALT_CORRECT_MASK_DIR)[1:7]:
+#     full_subdir = ALT_CORRECT_MASK_DIR + subdir + '/'
+#     [shutil.copy(full_subdir+image, BASE_DIR+'alt_correctly-masked/') for image in os.listdir(full_subdir)]
