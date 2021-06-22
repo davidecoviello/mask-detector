@@ -1,0 +1,9 @@
+matplotlib
+pathlib
+keras
+pillow
+libweb
+tensorflow
+sklearn
+numpy
+opencv-python
