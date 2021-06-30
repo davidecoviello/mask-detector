@@ -1,4 +1,7 @@
-jupyter
+imutils
+tqdm
+seaborn
+jupyter lab
 matplotlib
 pathlib
 keras
