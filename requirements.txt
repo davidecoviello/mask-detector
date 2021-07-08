@@ -1,6 +1,7 @@
 imutils
 tqdm
 seaborn
+jupyterlab-git
 jupyter lab
 matplotlib
 pathlib
