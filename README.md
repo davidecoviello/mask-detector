@@ -25,4 +25,5 @@ Per il raggiungimento degli obiettivi sono stati eseguiti i seguenti passi:
 ## Esecuzione applicazione
 1. Eseguire lo script ./install.sh per creare il virtual environment ed installare le librerie necessarie
 2. Attivare il virtual environment con il seguente comando: . venv/bin/activate
-3. eseguire main.py
+3. eseguire main.py con il seguente comando: python3 main.py
+4. Per uscire dall'applicazione premere il tasto 'q'
