@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 set -e
 echo "Creating kernel computer-vision ..."
 python3 -m venv venv
