@@ -10,6 +10,8 @@ Per il raggiungimento degli obiettivi sono stati eseguiti i seguenti passi:
 - Addestramento di una Convolutional Neural Network
 - Realizzazione di un'applicazione per l'utilizzo del modello
 
+Attenzione: poichè il dataset utilizzato è stato realizzato applicando a ciascun volto uno sticker raffigurante una mascherina, attualmente il sistema riconosce esclusivamente mascherine chirurgiche di colore chiaro.
+
 ## Tecnologie utilizzate
 - Python 3
 - TensorFlow 2.5.0
